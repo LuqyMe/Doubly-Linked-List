@@ -1,59 +1,57 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
-struct Angka {
-	int value;
-	Angka *next;
-	Angka *prev;
-}
-*head, *tail, *cur, *del, *newNode, *temp;
+struct DataUser{
+    int value;
+    DataUser *prev;
+    DataUser *next;
+}*head, *tail, *cur, *newNode, *del, *temp;
 
-//	Buat
-void createDLL(int val) {
-	head = new Angka();
-	head->value = val;
-	head->next = nullptr;
-	head->prev = nullptr;
-	tail = head;
+void createNode(int val){
+    head = new DataUser();
+    head->value = val;
+    head->prev = NULL;
+    head->next = NULL;
+    tail = head;
 }
-//	Tambah
-void addFirst(int val) {
-	newNode = new Angka();
-	newNode->value = val;
-	newNode->prev = nullptr;
-	newNode->next = head;
-	head = newNode;
+
+void addFirst(int val){
+    newNode = new DataUser;
+    newNode->value = val;
+    newNode->prev = NULL;
+    newNode->next = head;
+    head = newNode;
 }
-void addMid(int val, int index) {
-	newNode = new Angka();
-	newNode->value = val;
-	cur = head;
-	int count = 1;
-	while(count < index) {
-		cur = cur->next;
-		count++;
-	}
-	newNode->prev = cur;
-	newNode->next = cur->next;
-	cur->next = newNode;
-	
-	cur = newNode->next;
-	cur->prev = newNode;
+
+void addMid(int val, int index){
+    newNode = new DataUser();
+    newNode->value = val;
+    cur = head;
+    int count = 1;
+    while (count < index){
+        cur = cur->next;
+        count++;
+    }
+    newNode->prev = cur;
+    newNode->next = cur->next;
+    cur->next = newNode;
+
+    cur = newNode->next;
+    cur->prev = newNode;
 }
 
 void addLast(int val) {
-	newNode = new Angka();
+	newNode = new DataUser();
 	newNode->value = val;
 	newNode->prev = tail;
-	newNode->next = nullptr;
+	newNode->next = NULL;
 	tail->next = newNode;
 	tail = newNode;
 }
-//	Hapus
 void removeFirst() {
 	del = head;
 	head = del->next;
-	head->prev = nullptr;
+	head->prev = NULL;
 	delete del;
 }
 void removeMid(int index) {
@@ -74,34 +72,33 @@ void removeMid(int index) {
 void removeLast() {
 	del = tail;
 	tail = tail->prev;
-	tail->next = nullptr;
+	tail->next = NULL;
 	delete del;
 }
-void printDLL() {
-	cur = head;
-	int count = 1;
-	while(cur != NULL) {
-		std::cout << "value" << count << " : " << cur->value << std::endl;
-		cur = cur->next;
-		count++;
-	}
-	std::cout << "\n\n\n";
+
+void printNode1(){
+    cur = head;
+    while(cur != NULL){
+        cout << "Angka : " << cur->value << endl;
+        //step
+        cur = cur->next;
+    }
+    cout << "\n------------------\n" << endl;
 }
+
 int main() {
 	
-	createDLL(1);
+	createNode(1);
 	for(int i = 2; i < 6; i++) {
 		addLast(i);
 	}
-	printDLL();
+	printNode1();
 	
-	
-	addMid(555, 3);
-	printDLL();
+	addMid(33, 3);
+	printNode1();
 	
 	removeMid(3);
-	printDLL();
+	printNode1();
 	
-
 	return 0;
 }
